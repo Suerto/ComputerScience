@@ -157,6 +157,12 @@ $$
 - The axiom $[\text{while}_\text{sos}]$ shows that the first step in the execution of the $\texttt{while}$-construct is to unfold it one level; that is, to rewrite it as a conditional. The test will therefore be performed in the second step of the execution.
 A **derivation sequence** of a statement $S$ starting in state $s$ is either:
 - A finite sequence $$\gamma_0,\ \gamma_1,\ \gamma_2,\ ...,\ \gamma_k$$ also written $$\gamma_0 \Rightarrow \gamma_1 \Rightarrow \gamma_2 \Rightarrow ... \Rightarrow \gamma_k$$consisting of configurations satisfying $\gamma_0 = \langle S,\ s \rangle,\ \gamma_i \Rightarrow \gamma_{i+1}$ for $0 \leq i \leq k$, where $k \geq 0$ and where $\gamma_k$ is either a terminal or stuck configuration;
-- An infinite sequence $$\gamma_0,\ \gamma_1,\ \gamma_2,\ ...$$also written $$\gamma_0 \Rightarrow \gamma_1 \Rightarrow \gamma_2 \Rightarrow ... $$consisting of configuration satisfying $\gamma_0 = \langle S,\ s \rangle,\ \gamma_i \Rightarrow \gamma_{i+1}$ for $o \leq i$.
+- An infinite sequence $$\gamma_0,\ \gamma_1,\ \gamma_2,\ ...$$also written $$\gamma_0 \Rightarrow \gamma_1 \Rightarrow \gamma_2 \Rightarrow ... $$consisting of configuration satisfying $\gamma_0 = \langle S,\ s \rangle,\ \gamma_i \Rightarrow \gamma_{i+1}$ for $0 \leq i$.
 
 We shall write $\gamma_0 \Rightarrow^i \gamma_i$ to indicate that there are $i$ steps in the execution from $\gamma_0$ to $\gamma_i$ and we write $\gamma_0 \Rightarrow^* \gamma_i$ to indicate that there are a finite number of steps.
+
+Given a statement $S$ in the language $\textbf{While}$ and a state $s$, it is always possible to find at least one derivation sequence that starts in the configuration $\langle S,\ s\rangle$: simply apply axioms and rules forever or until a terminal or stuck configuration is reached.
+In analogy with the terminology of the previous section, we shall say that the execution of a statement $S$ on a state $s$:
+- **Terminates** if and only if there is a finite derivation sequence starting with $\langle S,\ s\rangle$;
+- **Loops** if and only if there is a infinite derivation sequence starting with $\langle S,\ s\rangle$
+We shall then say that the execution of $S$ on $s$ *terminates successfully* if $\langle S,\ s\rangle \Rightarrow^* s'$ for some state $s'$; in our $\textbf{While}$ language, an execution terminates successfully if and only if it terminates because there are no stuck configurations. 
