@@ -1,0 +1,230 @@
+{
+  "main": {
+    "id": "1a55c3af83b74e45",
+    "type": "split",
+    "children": [
+      {
+        "id": "aa92ff7845f5db79",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "81cbe3f6f55d6b5e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "formalMethodsCyberphysicalSystems/lectures/Safety Requirements.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Safety Requirements"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "eb9b874ae6cbb0f6",
+    "type": "split",
+    "children": [
+      {
+        "id": "8c8bf5c41ef3f8ba",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6358ab09121afb66",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "bccd2027213d0a74",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "311c5615c1d7c375",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "e244bbfd50699834",
+    "type": "split",
+    "children": [
+      {
+        "id": "0320c0366f23c270",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "16cadc56df7b7a32",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "firstYear/firstSemester/economicsManagementInnovation/lectures/Chapter 2.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "fba6dc054f1c02e2",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "4e6a81febc81d99f",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "79b950ce0aff5665",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "7e590e71d72ddefd",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Untitled.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "81cbe3f6f55d6b5e",
+  "lastOpenFiles": [
+    "formalMethodsCyberphysicalSystems/lectures/Synchronous Model.md",
+    "Screenshot 2026-10-12 at 15.08.22.png",
+    "Screenshot 2026-10-12 at 15.19.16.png",
+    "cyberphysicalSystemsAndIoT/images/CANBus_Communication.png",
+    "cyberphysicalSystemsAndIoT/images/CANBus_Arbitration_4.png",
+    "cyberphysicalSystemsAndIoT/images/CANBus_Arbitration_3.png",
+    "cyberphysicalSystemsAndIoT/images/CANBus_Arbitration_2.png",
+    "cyberphysicalSystemsAndIoT/images/CANBus_Arbitration_1.png",
+    "cyberphysicalSystemsAndIoT/lectures/Keyless Cars Security.md",
+    "cyberphysicalSystemsAndIoT/images/KeylessAccess_DST.png",
+    "economicsManagementInnovation/lectures/Chapter 2.md",
+    "softwareVerification/lectures/Program Semantics.md",
+    "softwareVerification/lectures",
+    "softwareVerification",
+    "functionalLanguages",
+    "formalMethodsCyberphysicalSystems/lectures/Safety Requirements.md",
+    "formalMethodsCyberphysicalSystems/images/SRC_Tasks.png",
+    "formalMethodsCyberphysicalSystems/images/SRC_Task_Graph.png",
+    "formalMethodsCyberphysicalSystems/lectures",
+    "formalMethodsCyberphysicalSystems/images",
+    "formalMethodsCyberphysicalSystems/excercises",
+    "formalMethodsCyberphysicalSystems/assignments",
+    "formalMethodsCyberphysicalSystems",
+    "economicsManagementInnovation/presentations",
+    "economicsManagementInnovation/lectures",
+    "cyberphysicalSystemsAndIoT/lectures/In-Vehicle Security.md",
+    "computability/Algorithms and Effective Procedures.md",
+    "firstYear/firstSemester/computability/Algorithms and Effective Procedures.md",
+    "firstYear/firstSemester/formalMethodsCyberphysicalSystems/lectures/Chapter 1 - Synchronous Model.md",
+    "firstYear/firstSemester/softwareVerification/lectures/Program Semantics.md",
+    "firstYear/firstSemester/economicsManagementInnovation/lectures/Chapter 2.md",
+    "firstYear/firstSemester/cyberphysicalSystemsAndIoT/lectures/Keyless Cars Security.md",
+    "firstYear/firstSemester/cyberphysicalSystemsAndIoT/lectures/In-Vehicle Security.md",
+    "firstYear/firstSemester/formalMethodsCyberphysicalSystems/lectures/Chapter 2 - Safety Requirements.md",
+    "README.md",
+    "Introduction.md",
+    "Screenshot 2026-09-30 at 10.22.23.png.md"
+  ]
+}

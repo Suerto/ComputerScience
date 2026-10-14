@@ -8,13 +8,15 @@ As a first solution, it was OK, but since the immobilizer transmitted always the
 ### Digital Signature Transponder
 Due to this problems, the immobilizer were quickly upgraded into a more secure system, introducing the **Digital Signature Transponder (DST)**. This is device is small *radio frequency identification (RFID)* chip that is enabled with a cypher F() and a 40-bit secret key. Both the car and the DST share a copy of the private key K.
 
-![[KeylessAccess_DST.png]]
+> [!INFO] Digital Signature Transponder and Car Communication
+> ![[KeylessAccess_DST.png]]
 
 In this scenario, an attacker cannot replay the response since the car should be sending a different challenge every round. Still, there is a problem related to the key length, which allows the attacker to try all possible combinations to infer the private keys.
 #### DST+
 To solve the cloning attack, the DST was eventually upgraded once again introducing the *Mutual Authentication Key (MAK)*. As shown in the picture below, the encryption is more difficult than before and if the challenge is not the one expected, the chip doesn't respond.
 
-![[KeylessAccess_DST+.png]]
+> [!INFO] Digital Signature Transponder+
+> ![[KeylessAccess_DST+.png]]
 
 To add every more complexity and security, the *Passive Keyless Entry System* was introduced in which there was no interaction needed with the user and the car, in addition to checking whether the code was legitimate and correct, had to check where the key was: by using a low-frequency RFID channel, it checked if key was in remote distance ($\approx 100$m), outside of the car (1 or 2m from the handle) or inside the car. Only in the last case the engine would start.
 
@@ -31,7 +33,8 @@ In this attack specialisation, two loop antennas are connected via a cable that 
 ### Relay over the Air
 Since cables can be suspicious during an attack, cause as attackers we want to be discrete as possible :), we remove them from the equation. From here, we use an *emitter* and a *receiver* where the former captures the low frequency signal and up-converts it to a 2.5 GHz, amplifies it and then transmits it over the air and the latter down-coverts the signal back to the low frequency, amplifies it again and sends it to the loop antenna.
 
-![[KeylessAccess_Relay_Air.png]]
+>[!INFO] Relay over the Air
+>![[KeylessAccess_Relay_Air.png]]
 
 This attack can also be called **mafia fraud attack** (inspired by the **Chess Grandmaster Problem**) where the attacker sets up 2 devices: one near the verifier and another near the prover. Both of them are honest and they do not expect (or realise) the presence of the attacker. 
 
@@ -52,6 +55,5 @@ Let's now add some more security:
 - $P$ randomly generates a bit string $m_1, \ ..., \ m_k$ and sends a commit of this value to $V$. The commitment depends on the used algorithm (if we used Pedersen $\rightarrow C(m,\ r) = g^mh^r$, where $g,\ h$ are generators of the public group $G$). Although the bit string is not revealed, $V$ will be able to check whether $P$ really committed to that;
 - $V$ generates $a_1,\ ...,\ a_k$ initiating the rapid bit exchange sequence;
 - $P$ then needs to respond as quick as possible with $a_i \oplus b_i$;
-- From the response times, $V$ will derive a distance upper bound $D = max_i\frac{(T_i)c}{2}$ 
+- From the response times, $V$ will derive a distance upper bound $D = max_i\dfrac{(T_i)c}{2}$ 
 This mechanism highlights some key aspects: if used against Mafia Fraud Attacks, the adversary should create a time-gaining relay, by delivering in advance the challenge or response bits but, since bits are unguessable and they cannot travel faster than the speed of light, the probability of guessing a bit is 50% for a bit (but keep in mind that we use $k$ bits) and, in a "standard" security protocol $k = 128$, the probability of success drops to $3\times10^{-39}$.
-
