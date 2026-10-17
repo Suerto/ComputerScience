@@ -1,4 +1,3 @@
-From book Semantics with Applications, An Appetizer (by Nielson and Nielson)
 # Introduction 
 ## The While Language
 In the **Software Verification** course, we illustrate the various forms of semantics on a very simple imperative programming language called **While**. To begin, we must specify its syntax, which syntactic notation is based on **Backus-Naur Form (BNF)** of context-free grammars. We firstly list the *syntactic categories* and give a meta-variable used to range over the constructs of each category. 
@@ -178,4 +177,42 @@ For structural operational semantics, it is useful to conduct proofs by inductio
 2. Prove that the property holds for all finite derivation sequences:
 	- Assuming that the property holds for all derivation sequence of length at most $k$, which will be our *inductive hypothesis*, we show that it holds for derivation sequences of length equals to $k + 1$
 #### Lemma 2.19 (Decomposition Lemma)
-If $\langle S_1;S_2,\ s\rangle \Rightarrow^k s''$, then there exists a state s' and natural numbers $k_1$ and $k_2$such that $\langle S_1, s\rangle \Rightarrow^{k_1} s'$ and $\langle S_1, s\rangle \Rightarrow^{k_2} s''$, where $k = k_1 + k_2$.
+If $\langle S_1;S_2,\ s\rangle \Rightarrow^k s''$, then there exists a state s' and natural numbers $k_1$ and $k_2$such that $\langle S_1, s\rangle \Rightarrow^{k_1} s'$ and $\langle S_2, s'\rangle \Rightarrow^{k_2} s''$, where $k = k_1 + k_2$.
+
+> [!INFO] Proof of Decomposition Lemma
+> The proof is by induction on the number $k$, which is the length of the derivation sequence. 
+> Our proposition is that 
+> *Base Case*:
+> - $k = 0$:  $P(0) := \langle S_1;S_2, s \rangle \Rightarrow^0 s''$ but remember that $\langle S_1;S_2, s \rangle \Rightarrow^0$ would mean that $\langle S_1;S_2, s \rangle$ is a stuck configuration, which is never the case. The premise $\langle S_1;S_2, s \rangle \Rightarrow^0 s''$ is false, and $P(0)$ trivially (or vacuously) holds.
+> *Inductive  Step*:
+> - The hypothesis is that $$\langle S_1;S_2, s \rangle \Rightarrow^{k + 1} s''$$ so that means that $$\langle S_1; S_2, s \rangle \Rightarrow \langle \gamma, s_0 \rangle \Rightarrow^k s''$$
+> - There are 2 rules for deriving the small step $$\langle S_1; S_2, s \rangle \Rightarrow \langle \gamma, s_0 \rangle$$ $[comp_1]$ and $[comp_2]$
+> 	- Assume that we applied the rule $[comp_1]$, $\langle S_1; S_2, s\rangle \Rightarrow \langle S_1'; S_2, s_0 \rangle$
+> 	- As a consequence, $\langle \gamma, s_0 \Rightarrow $
+>
+#### Lemma 2.20 (Composition Lemma)
+$$\langle S_1, s \rangle \Rightarrow^k s' \rightarrow \langle S_1; S_2, s \rangle \Rightarrow^k \langle S_2, s' \rangle $$
+##### Corollary
+$$\langle S_1, s \rangle \Rightarrow^* s' \rightarrow \langle S_1; S_2, s \rangle \Rightarrow^* \langle S_2, s' \rangle $$
+## The Semantic Function $\mathcal{S}_{sos}$
+The meaning of statements can be summarised by a partial function from $\textbf{State}$ to $\textbf{State}$ as follows: $$\mathcal{S}_{sos}: \textbf{Stm} \rightarrow (\textbf{State} \hookrightarrow \textbf{State})$$It is given by $$\mathcal{S}_{sos}[\![S]\!]s = \begin{cases}s' \text{ if  } \langle S, s \rangle \Rightarrow^* s' \\ \uparrow \text{ otherwise}\end{cases}$$And given the fact that the Structural Operational Semantics is deterministic by the given property $$\forall S,s, \gamma, \gamma'.\ \langle S, s\rangle \Rightarrow \gamma \ \wedge \langle S, s \rangle \Rightarrow \gamma' \rightarrow \gamma = \gamma'$$
+This function is said to be **well-defined**.
+
+Thanks to these properties and these theorems of Composition and Decomposition we can define the **Statement Semantic Equivalence**: 
+
+$S_1$ and $S_2$ are said to be SOS equivalent if $\forall s$:
+- $\langle S_1, s \rangle \Rightarrow^* \gamma$ if and only if $\langle S_2, s \rangle \Rightarrow^* \gamma$, whenever $\gamma$ is a configuration that is either stuck or terminal;
+- There is an infinite derivation sequence starting in $\langle S_1, s \rangle$ if an only if there is one starting in $\langle S_2, s \rangle$.
+But since we are considering the case where there are no stuck configuration thanks to the deterministic property of the Structural Operational Semantics, the property takes the following form: $$S_1 \triangleq S_2 \iff \forall s, s'. \langle S_1, s \rangle \Rightarrow^* s' \iff \langle S_2, s\rangle \Rightarrow^* s'$$
+# More on Operational Semantics 
+## Non-Sequential Language Constructs
+To illustrate the power and weakness of operational semantics, and in particular structural operational semantics, we shall consider various extensions of the language $\textbf{While}$.
+### Abortion
+We first extend the $\textbf{While}$ language with the $\texttt{abort}$ statement, which idea is that $\texttt{abort}$ stops the execution of the complete program. This means that $\texttt{abort}$behaves differently from $\texttt{while true do skip}$ in that it causes the execution to stop rather than loop. Differently from $\texttt{skip}$, any statement following $\texttt{abort}$ will never be executed. The new formal syntax is the following: $$S ::= x := a\ | \texttt{ skip }|\ S_1;S_2\ |\text{ if }b \text{ then } S_1 \text{ else } S_2\ | \text{ while } b \text{ do } S \ |\ \texttt{abort}$$The fact that $\texttt{abort}$ stops the execution of the program may be modelled by ensuring that the configurations of the form $\langle \texttt{abort}, s\rangle$ are stuck.
+
+From the structural operational semantics point of view, it is clear that $\texttt{skip}$and $\texttt{abort}$ cannot be semantically equivalent since $$\langle \texttt{skip}, s \rangle \Rightarrow s$$is the only derivation sequence for $\texttt{skip}$ starting in $s$ and $$\langle \texttt{abort}, s\rangle$$is the only derivation sequence for $\texttt{abort}$ starting in $s$.
+Similarly, $\texttt{abort}$ cannot be semantically equivalent to $\texttt{while true do skip}$.
+### Non-Determinism
+The second extension of the $\textbf{While}$ language has statements given by $$S ::= x := a\ | \texttt{ skip }|\ S_1;S_2\ |\texttt{ if }b \texttt{ then } S_1 \texttt{ else } S_2\ | \texttt{ while } b \texttt{ do } S\ |\ S_1 \texttt{ or } S_2$$The idea here is that in $S_1 \texttt{ or } S_2$ we can non-deterministically choose to execute either $S_1$ or $S_2$. When specifying the structural operational semantics, we extend with the following axioms: $$\begin{aligned}&[\text{or}^1_{sos}] &\langle S_1 \texttt{ or } S_2, s\rangle \Rightarrow \langle S_1, s \rangle\\ \\ &[\text{or}^2_{sos}] &\langle S_1 \texttt{ or } S_2, s\rangle \Rightarrow \langle S_2, s \rangle\end{aligned}$$
+### Parallelism
+The next extension of the $\textbf{While}$ language is a parallel construct. The syntax of expressions is given by $$S ::= x := a\ | \texttt{ skip }|\ S_1;S_2\ |\text{ if }b \text{ then } S_1 \text{ else } S_2\ | \text{ while } b \text{ do } S \ |\ S_1 \texttt{ par } S_2$$The idea is that both statements of $S_1 \texttt{ par } S_2$ have to be executed but that the execution can be interleaved. To express this in the structural operational semantics, we add these rules: $$\begin{aligned} &[\text{par}^1_{sos}] \ \ \ \ \dfrac{\langle S_1, s\rangle \Rightarrow \langle S_1', s' \rangle}{\langle S_1 \texttt{ par } S_2, s\rangle \Rightarrow \langle S_1' \texttt{ par } S_2, s'\rangle} \\ \\ &[\text{par}^2_{sos}] \ \ \ \ \dfrac{\langle S_1, s\rangle \Rightarrow s'}{\langle S_1 \texttt{ par } S_2, s\rangle \Rightarrow \langle S_2, s'\rangle} \\ \\&[\text{par}^3_{sos}] \ \ \ \ \dfrac{\langle S_2, s\rangle \Rightarrow \langle S_2', s' \rangle}{\langle S_1 \texttt{ par } S_2, s\rangle \Rightarrow \langle S_1 \texttt{ par } S_2', s'\rangle} \\ \\ &[\text{par}^1_{sos}] \ \ \ \ \dfrac{\langle S_2, s\rangle \Rightarrow s' }{\langle S_1 \texttt{ par } S_2, s\rangle \Rightarrow \langle S_1 , s'\rangle} \\\end{aligned}$$
