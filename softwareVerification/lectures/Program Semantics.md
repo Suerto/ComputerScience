@@ -127,16 +127,16 @@ We do also have a notion of substitution or updating for states. We define $\\ s
 $$
 # Operational Semantics
 The key role of a statement in our $\textbf{While}$ language is to change the state. So while the semantics of arithmetic and boolean expressions only inspect the state in order to determine the value of the expression, the semantics of statements will modify the state as well.
-In an operational semantics, we are concerned about **HOW** to execute programs and in **HOW** the states are modified during the execution of the statement.
+In an operational semantics, we are concerned about *how* to execute programs and in *how* the states are modified during the execution of the statement.
 We shall then consider two different approaches:
 - **Natural Semantics**: its purpose is to describe how the overall results of executions are obtained, also called **big-step** operational semantics;
-- Structural Operational Semantics: its purpose is to describe how the individual steps of the computations take place, also called **small-step** operational semantics
+- **Structural Operational Semantics**: its purpose is to describe how the individual steps of the computations take place, also called **small-step** operational semantics
 For both kinds of operational semantics, the meaning of statements will be defined by a transition system, which will have two types of configurations:
 - $\langle S,\ s \rangle$ representing that the statement $S$ is to be executed from the state $s$
 - $s$     representing a terminal state.
 The terminal configuration will be the latter form. The transition relation will describe how the execution takes place.
 ## Structural Operational Semantics
-As said, in a structural operational semantics, the emphasis is on the individual steps of the execution. The transition relation has the form $$\langle S, s \rangle \Rightarrow \gamma$$where $\gamma$ is either of the form $\langle S',\ s' \rangle$ or of the form $s'$. The transition expresses the first step of the execution of $S$ from the state $s$. That said, there are two possible outcomes:
+As said, in a structural operational semantics, we emphasise on the individual steps of the execution. The transition relation has the form $$\langle S, s \rangle \Rightarrow \gamma$$where $\gamma$ is either of the form $\langle S',\ s' \rangle$ or of the form $s'$. The transition expresses the first step of the execution of $S$ from the state $s$. That said, there are two possible outcomes:
 - If $\gamma$ is of the form $\langle S',\ s' \rangle$, then the execution of $S$ from $s$ is not completed and the remaining computation is expressed by the intermediate configuration $\langle S',\ s' \rangle$;
 - If $\gamma$ is of the form $s'$, then the execution of $S$ from $s$ has terminated and the final state is $s'$
 We shall then say that $\langle S, s \rangle$ is **stuck** if there is no $\gamma$ such that $\langle S, s \rangle \Rightarrow \gamma$.
@@ -152,7 +152,7 @@ $$
 &[\text{while}_\text{sos}] &\langle \text{while } b\ \text{do } S,\ s \rangle \Rightarrow \langle \text{if } b \text{ then } (S; \text{while } b\ \text{do } S) \text{ else skip},\ s \rangle
 \end{aligned}
 $$
-- $[\text{ass}_\text{sos}]$ says that in a state $s$, $x := a$ is executed to yield a final state $s[x \mapsto \mathcal{A}[\![a]\!]s]$, which is like $s$ except that $x$ has the value $\mathcal{A}[\![a]\!]s$;
+- $[\text{ass}_\text{sos}]$ says that in a state $s$, $x := a$ is executed to yield a final state $\\ s[x \mapsto \mathcal{A}[\![a]\!]s]$, which is like $s$ except that $x$ has the value $\mathcal{A}[\![a]\!]s$;
 - Similarly, $[\text{skip}_\text{sos}]$ says that $\texttt{skip}$ does not change the state;
 - The rules $[\text{comp}^1_\text{sos}]$ and $[\text{comp}^2_\text{sos}]$ express that to execute $S_1; S_2$ in a state $s$ we first execute $S_1$ one step from $s$. Then there are two possible outcomes:
 	- If the execution of $S_1$ has not been completed, we have to complete it before embarking on the execution of $S_2$;
@@ -176,21 +176,18 @@ For structural operational semantics, it is useful to conduct proofs by inductio
 1. We firstly prove that the property holds for all derivation sequences of length equals to 0;
 2. Prove that the property holds for all finite derivation sequences:
 	- Assuming that the property holds for all derivation sequence of length at most $k$, which will be our *inductive hypothesis*, we show that it holds for derivation sequences of length equals to $k + 1$
-#### Lemma 2.19 (Decomposition Lemma)
+#### Decomposition Lemma
 If $\langle S_1;S_2,\ s\rangle \Rightarrow^k s''$, then there exists a state s' and natural numbers $k_1$ and $k_2$such that $\langle S_1, s\rangle \Rightarrow^{k_1} s'$ and $\langle S_2, s'\rangle \Rightarrow^{k_2} s''$, where $k = k_1 + k_2$.
 
-> [!INFO] Proof of Decomposition Lemma
-> The proof is by induction on the number $k$, which is the length of the derivation sequence. 
-> Our proposition is that 
-> *Base Case*:
-> - $k = 0$:  $P(0) := \langle S_1;S_2, s \rangle \Rightarrow^0 s''$ but remember that $\langle S_1;S_2, s \rangle \Rightarrow^0$ would mean that $\langle S_1;S_2, s \rangle$ is a stuck configuration, which is never the case. The premise $\langle S_1;S_2, s \rangle \Rightarrow^0 s''$ is false, and $P(0)$ trivially (or vacuously) holds.
-> *Inductive  Step*:
-> - The hypothesis is that $$\langle S_1;S_2, s \rangle \Rightarrow^{k + 1} s''$$ so that means that $$\langle S_1; S_2, s \rangle \Rightarrow \langle \gamma, s_0 \rangle \Rightarrow^k s''$$
-> - There are 2 rules for deriving the small step $$\langle S_1; S_2, s \rangle \Rightarrow \langle \gamma, s_0 \rangle$$ $[comp_1]$ and $[comp_2]$
-> 	- Assume that we applied the rule $[comp_1]$, $\langle S_1; S_2, s\rangle \Rightarrow \langle S_1'; S_2, s_0 \rangle$
-> 	- As a consequence, $\langle \gamma, s_0 \Rightarrow $
->
-#### Lemma 2.20 (Composition Lemma)
+**Proof**: The proof is by induction on the number $k$, which is the length of the derivation sequence. Our proposition is that 
+*Base Case*:
+ - $k = 0$:  $P(0) := \langle S_1;S_2, s \rangle \Rightarrow^0 s''$ but remember that $\langle S_1;S_2, s \rangle \Rightarrow^0$ would mean that $\langle S_1;S_2, s \rangle$ is a stuck configuration, which is never the case. The premise $\langle S_1;S_2, s \rangle \Rightarrow^0 s''$ is false, and $P(0)$ trivially (or vacuously) holds.
+ *Inductive  Step*:
+ - The hypothesis is that $$\langle S_1;S_2, s \rangle \Rightarrow^{k + 1} s''$$ so that means that $$\langle S_1; S_2, s \rangle \Rightarrow \langle \gamma, s_0 \rangle \Rightarrow^k s''$$
+ - There are 2 rules for deriving the small step $$\langle S_1; S_2, s \rangle \Rightarrow \langle \gamma, s_0 \rangle$$ $[comp_1]$ and $[comp_2]$
+ 	- Assume that we applied the rule $[comp_1]$, $\langle S_1; S_2, s\rangle \Rightarrow \langle S_1'; S_2, s_0 \rangle$
+ 	- As a consequence, $\langle \gamma, s_0 \Rightarrow $
+#### Composition Lemma
 $$\langle S_1, s \rangle \Rightarrow^k s' \rightarrow \langle S_1; S_2, s \rangle \Rightarrow^k \langle S_2, s' \rangle $$
 ##### Corollary
 $$\langle S_1, s \rangle \Rightarrow^* s' \rightarrow \langle S_1; S_2, s \rangle \Rightarrow^* \langle S_2, s' \rangle $$
@@ -212,8 +209,9 @@ We first extend the $\textbf{While}$ language with the $\texttt{abort}$ statemen
 
 From the structural operational semantics point of view, it is clear that $\texttt{skip}$and $\texttt{abort}$ cannot be semantically equivalent since $$\langle \texttt{skip}, s \rangle \Rightarrow s$$is the only derivation sequence for $\texttt{skip}$ starting in $s$ and $$\langle \texttt{abort}, s\rangle$$is the only derivation sequence for $\texttt{abort}$ starting in $s$.
 Similarly, $\texttt{abort}$ cannot be semantically equivalent to $\texttt{while true do skip}$.
+An important factor to keep in mind is that in a structural operational semantics, *looping* is reflected by infinite derivation sequences and *abnormal termination* by finite derivation sequences ending in a stuck configuration.
 ### Non-Determinism
-The second extension of the $\textbf{While}$ language has statements given by $$S ::= x := a\ | \texttt{ skip }|\ S_1;S_2\ |\texttt{ if }b \texttt{ then } S_1 \texttt{ else } S_2\ | \texttt{ while } b \texttt{ do } S\ |\ S_1 \texttt{ or } S_2$$The idea here is that in $S_1 \texttt{ or } S_2$ we can non-deterministically choose to execute either $S_1$ or $S_2$. When specifying the structural operational semantics, we extend with the following axioms: $$\begin{aligned}&[\text{or}^1_{sos}] &\langle S_1 \texttt{ or } S_2, s\rangle \Rightarrow \langle S_1, s \rangle\\ \\ &[\text{or}^2_{sos}] &\langle S_1 \texttt{ or } S_2, s\rangle \Rightarrow \langle S_2, s \rangle\end{aligned}$$
+The second extension of the $\textbf{While}$ language has statements given by $$S ::= x := a\ | \texttt{ skip }|\ S_1;S_2\ |\texttt{ if }b \texttt{ then } S_1 \texttt{ else } S_2\ | \texttt{ while } b \texttt{ do } S\ |\ S_1 \texttt{ or } S_2$$The idea here is that in $S_1 \texttt{ or } S_2$ we can non-deterministically choose to execute either $S_1$ or $S_2$. When specifying the structural operational semantics, we extend with the following axioms: $$\begin{aligned}&[\text{or}^1_{sos}] &\langle S_1 \texttt{ or } S_2, s\rangle \Rightarrow \langle S_1, s \rangle\\ \\ &[\text{or}^2_{sos}] &\langle S_1 \texttt{ or } S_2, s\rangle \Rightarrow \langle S_2, s \rangle\end{aligned}$$In a structural operational semantics, *non-determinism* does not support *looping*.
 ### Parallelism
 The next extension of the $\textbf{While}$ language is a parallel construct. The syntax of expressions is given by $$S ::= x := a\ | \texttt{ skip }|\ S_1;S_2\ |\text{ if }b \text{ then } S_1 \text{ else } S_2\ | \text{ while } b \text{ do } S \ |\ S_1 \texttt{ par } S_2$$The idea is that both statements of $S_1 \texttt{ par } S_2$ have to be executed but that the execution can be interleaved. To express this in the structural operational semantics, we add these rules: $$\begin{aligned} &[\text{par}^1_{sos}] \ \ \ \ \dfrac{\langle S_1, s\rangle \Rightarrow \langle S_1', s' \rangle}{\langle S_1 \texttt{ par } S_2, s\rangle \Rightarrow \langle S_1' \texttt{ par } S_2, s'\rangle} \\ \\ &[\text{par}^2_{sos}] \ \ \ \ \dfrac{\langle S_1, s\rangle \Rightarrow s'}{\langle S_1 \texttt{ par } S_2, s\rangle \Rightarrow \langle S_2, s'\rangle} \\ \\&[\text{par}^3_{sos}] \ \ \ \ \dfrac{\langle S_2, s\rangle \Rightarrow \langle S_2', s' \rangle}{\langle S_1 \texttt{ par } S_2, s\rangle \Rightarrow \langle S_1 \texttt{ par } S_2', s'\rangle} \\ \\ &[\text{par}^1_{sos}] \ \ \ \ \dfrac{\langle S_2, s\rangle \Rightarrow s' }{\langle S_1 \texttt{ par } S_2, s\rangle \Rightarrow \langle S_1 , s'\rangle} \\\end{aligned}$$
 # Denotational Semantics
