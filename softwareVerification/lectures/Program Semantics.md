@@ -1,6 +1,6 @@
 # Introduction 
 ## The While Language
-In the **Software Verification** course, we illustrate the various forms of semantics on a very simple imperative programming language called **While**. To begin, we must specify its syntax, which syntactic notation is based on **Backus-Naur Form (BNF)** of context-free grammars. We firstly list the *syntactic categories* and give a meta-variable used to range over the constructs of each category. 
+In the $\textbf{Software Verification}$ course, we illustrate the various forms of semantics on an imperative programming language called $\textbf{While}$. To begin, we must specify its syntax, which syntactic notation is based on **Backus-Naur Form (BNF)** of context-free grammars. We firstly list the *syntactic categories* and give a meta-variable used to range over the constructs of each category. 
 We will use:
 - $n$ to range over numerals, denoted as $\textbf{Num}$;
 - $x$ to range over variables, denoted as $\textbf{Var}$;
@@ -8,11 +8,11 @@ We will use:
 - $b$ to range over boolean expressions, denoted as $\textbf{Bexp}$;
 - $S$ to range over statements, denoted as $\textbf{Stm}$
 Supposing that the structure of numerals and variables is given elsewhere, we will focus on the structure of the other constructs:
-- $a::= n\ |\ x\ |\ a_1 + a_2\ | \ a_1 * a_2\ |\ a_1 - a_2$;
+- $a::= n\ |\ x\ |\ a_1 + a_2\ | \ a_1 \star a_2\ |\ a_1 - a_2$;
 - $b ::= \text{true } | \text{ false } |\ a_1 = a_2\ |\ a_1 \leq a_2\ |\ \neg b\ |\ b_1 \wedge b_2$;
 - $S ::= x := a\ | \text{ skip }|\ S_1;S_2\ |\text{ if }b \text{ then } S_1 \text{ else } S_2\ | \text{ while } b \text{ do } S$
 ## Semantics of Expressions
-Assuming for a moment that the numerals are in binary system, their syntax can be specified by $$n ::= 0\ |\ 1\ |\ n\ 0\ |\ n\ 1$$In order to determine the number represented by a numeral, we define a function $$\mathcal{N}: \textbf{Num} \rightarrow \mathbb{Z}$$This is called a **semantic function**, since it defines the semantics of numerals. Keep in mind that we want $\mathcal{N}$ to be a total function because we want to determine a unique number for each numeral of $\textbf{Num}$. If $n \in \textbf{Num}$, we write $\mathcal{N}[\![n]\!]$ for the application of $\mathcal{N}$ to $n$. Moreover, the application of a semantic function to a syntactic entity will be written within the syntactic brackets "$[\![$" and "$]\!]$". The semantic function $\mathcal{N}$ is defined by the following *semantic equations*: 
+Assuming for a moment that the numerals are in binary system, their syntax can be specified by $$n ::= 0\ |\ 1\ |\ n\ 0\ |\ n\ 1$$In order to determine the number represented by a numeral, we define a total function $$\mathcal{N}: \textbf{Num} \rightarrow \mathbb{Z}$$This is called a **semantic function**, since it defines the semantics of numerals. Keep in mind that we want $\mathcal{N}$ to be a total function because we want to determine a unique number for each numeral of $\textbf{Num}$. If $n \in \textbf{Num}$, we write $\mathcal{N}[\![n]\!]$ for the application of $\mathcal{N}$ to $n$. Moreover, the application of a semantic function to a syntactic entity will be written within the syntactic brackets "$[\![$" and "$]\!]$". The semantic function $\mathcal{N}$ is defined by the following *semantic equations*: 
 $$
 \begin{aligned}
 \mathcal{N}[\![0]\!] &= \textbf{0} \\\\ \mathcal{N}[\![1]\!] &= \textbf{1} \\\\ \mathcal{N}[\![n\ 0]\!] &= \textbf{2} • \mathcal{N}[\![n]\!] \\ \\ \mathcal{N}[\![n\ 1]\!] &= \textbf{2} • \mathcal{N}[\![n]\!] \ + \textbf{1}
@@ -36,10 +36,10 @@ The general technique, called **Compositional Definition**, that we adopt in the
 The proof technique that we apply, called **Structural Induction**, is closely connected with the approach to defining semantic functions and can be summarised as follows:
 - Prove that the property holds for all the basis elements of the syntactic category;
 - Prove that the property holds for all the composite elements of the syntactic category. By assuming that the property holds for all the immediate constituents of the element, which is called **induction hypothesis**, and prove that it also holds for the element itself.
-From now on, let's assume that numerals are in decimal notation and have their normal meaning (so $\mathcal{N}[\![69]\!] = \textbf{69} \in \mathbb{Z}$).
+From now on, let's assume that numerals are in decimal notation and have their normal meaning (for example, $\mathcal{N}[\![69]\!] = \textbf{69} \in \mathbb{Z}$).
 ### Semantic Functions
-The meaning of an expression depends on the values bound to the variables that occur in it. We shall then introduce the concept of a **state**: to each variable the state will associate its current value and we represent it as a function from variables to values: $$\textbf{State} = \textbf{Var} \rightarrow \mathbb{Z}$$Each state $s$ specifies a value, written $s\ x$, for each variable $x$ of $\textbf{Var}$.
-Given the arithmetical expression $a$ and a state $s$, we can determine the value of the expression. From that, we can define the meaning of arithmetic expressions as a total function $\mathcal{A}$ that takes two (2) arguments: the syntactic construct and the state: $$\mathcal{A}: \textbf{Aexp} \rightarrow (\textbf{State} \rightarrow \mathbb{Z})$$This means that $\mathcal{A}$ takes its parameters one at a time.
+The meaning of an expression depends on the values bound to the variables that occur in it. We shall then introduce the concept of a *state*: to each variable the state will associate its current value and we represent it as a function from variables to values: $$\textbf{State} = \textbf{Var} \rightarrow \mathbb{Z}$$Each state $s$ specifies a value, written $s\ x$, for each variable $x$ of $\textbf{Var}$.
+Given the arithmetic expression $a$ and a state $s$, we can determine the value of the expression. From that, we can define the meaning of arithmetic expressions as a total function $\mathcal{A}$ that takes two (2) arguments: the syntactic construct and the state: $$\mathcal{A}: \textbf{Aexp} \rightarrow (\textbf{State} \rightarrow \mathbb{Z})$$This means that $\mathcal{A}$ takes its parameters one at a time.
 Assuming the existence of the function $\mathcal{N}$ defining the meaning of numerals, we can define the function $\mathcal{A}$ by defining its value $\mathcal{A}[\![a]\!]s$ on each arithmetic expression $a$ and state $s$. 
 $$
 \begin{aligned}
@@ -83,14 +83,14 @@ FV(a_1 \star a_2) &= FV(a_1)\ \cup \ FV(a_2)  \\ \\
 > FV(x + y * x) = { x, y }
  
 In a similar way, we can also define the set FV($b$) of free variables in a boolean expression $b$: $$\begin{aligned}
-FV(true) &= \emptyset \\ \\
-FV(false) &= \emptyset \\ \\
+FV(\texttt{true}) &= \emptyset \\ \\
+FV(\texttt{false}) &= \emptyset \\ \\
 FV(a_1 = a_2) &= FV(a_1)\ \cup \ FV(a_2) \\ \\
 FV(a_1 \leq a_2) &= FV(a_1)\ \cup \ FV(a_2)  \\ \\
 FV(\neg b) &= FV(b)  \\ \\
 FV(b_1 \wedge b_2) &= FV(b_1)\ \cup \ FV(b_2) 
 \end{aligned}$$
-#### Lemma 1.12
+#### Lemma
 Let $s$ and $s'$ be two states satisfying $s\ x = s'\ x$ $\forall x \in FV(a)$. Then $$\mathcal{A}[\![a]\!]s = \mathcal{A}[\![a]\!]s'$$
 **Proof:** $\forall a \in Aexp.\ P(a) := \forall s, s' \in State.\ \forall x \in FV(a).\ s\ x = s'\ x \rightarrow \mathcal{A}[\![a]\!]s = \mathcal{A}[\![a]\!]s'$    
 
